@@ -8,10 +8,8 @@ namespace easyeat.Business.Model
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("SuscriptionId")]
         public Suscription Suscription { get; set; }
         
-        [ForeignKey("RestaurantId")]
         public Restaurant Restaurant { get; set; } 
     }
 }

@@ -8,12 +8,12 @@ namespace easyeat.Controllers
 {
     [ApiController]
     [Route("api/mealplans")]
-    public class MealPlansApiController : ControllerBase
+    public class MealPlansController : ControllerBase
     {
         private readonly IMealPlanService _mealPlanService;
         private readonly IMapper _mapper;
 
-        public MealPlansApiController(IMealPlanService mealPlanService, IMapper mapper)
+        public MealPlansController(IMealPlanService mealPlanService, IMapper mapper)
         {
             _mealPlanService = mealPlanService;
             _mapper = mapper;
@@ -29,7 +29,7 @@ namespace easyeat.Controllers
         }
 
         // GET: /api/mealplans/restaurant
-        [HttpGet("restaurant/{restaurantId}")] 
+        [HttpGet("restaurant/{restaurantId}")]
         public async Task<IActionResult> List(int restaurantId)
         {
             var mealplans = await _mealPlanService.ListByRestaurant(restaurantId);
@@ -61,7 +61,7 @@ namespace easyeat.Controllers
             {
                 return NotFound();
             }
-            
+
             await _mealPlanService.Delete(mealPlanId);
 
             return Ok();
@@ -82,7 +82,7 @@ namespace easyeat.Controllers
             {
                 return BadRequest();
             }
-            
+
             await _mealPlanService.Update(_mapper.Map<Business.Model.MealPlan>(mealPlan));
 
             return Ok();
@@ -90,8 +90,8 @@ namespace easyeat.Controllers
 
         // POST: /api/mealplans
         [HttpPost]
-        public async Task<IActionResult> Create(MealPlan newMealPlan)
-        {      
+        public async Task<IActionResult> Create(NewMealPlan newMealPlan)
+        {
             var mealplan = await _mealPlanService.Create(_mapper.Map<Business.Model.MealPlan>(newMealPlan));
 
             return Ok(_mapper.Map<MealPlan>(mealplan));

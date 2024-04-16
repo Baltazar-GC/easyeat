@@ -1,4 +1,6 @@
-using easyeat.Business.Model;
+
+using easyeat.DTOs.Addresses;
+using easyeat.DTOs.MealPlans;
 
 namespace easyeat.DTOs.Restaurants
 {

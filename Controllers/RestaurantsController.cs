@@ -6,12 +6,12 @@ namespace easyeat.Controllers
 {
     [ApiController]
     [Route("api/restaurants")]
-    public class RestaurantApiController : ControllerBase
+    public class RestaurantController : ControllerBase
     {
         private readonly IRestaurantService _restaurantService;
         private readonly IMapper _mapper;
 
-        public RestaurantApiController(IRestaurantService restaurantService, IMapper mapper)
+        public RestaurantController(IRestaurantService restaurantService, IMapper mapper)
         {
             _restaurantService = restaurantService;
             _mapper = mapper;
@@ -56,6 +56,15 @@ namespace easyeat.Controllers
             return Ok();
         }
 
+        // POST: /api/restaurants
+        [HttpPost]
+        public async Task<IActionResult> Createe(NewRestaurant newRestaurant)
+        {      
+            var restaurant = await _restaurantService.Create(_mapper.Map<Business.Model.Restaurant>(newRestaurant));
+
+            return Ok(_mapper.Map<Restaurant>(restaurant));
+        }
+
         // PUT: /api/restaurants/{id}
         [HttpPut("{restaurantId}")]
         public async Task<IActionResult> Update(Restaurant restaurant, int restaurantId)
@@ -75,15 +84,6 @@ namespace easyeat.Controllers
             await _restaurantService.Update(_mapper.Map<Business.Model.Restaurant>(restaurant));
 
             return Ok();
-        }
-
-        // POST: /api/restaurants
-        [HttpPost]
-        public async Task<IActionResult> Create(Restaurant newRestaurant)
-        {      
-            var restaurant = await _restaurantService.Create(_mapper.Map<Business.Model.Restaurant>(newRestaurant));
-
-            return Ok(_mapper.Map<Restaurant>(restaurant));
         }
     }
 }

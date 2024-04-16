@@ -7,12 +7,12 @@ namespace easyeat.Controllers
 {
     [ApiController]
     [Route("api/categories")]
-    public class CategoriesApiController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
 
-        public CategoriesApiController(ICategoryService categoryService, IMapper mapper)
+        public CategoriesController(ICategoryService categoryService, IMapper mapper)
         {
             _categoryService = categoryService;
             _mapper = mapper;
@@ -80,7 +80,7 @@ namespace easyeat.Controllers
 
         // POST: /api/categories
         [HttpPost]
-        public async Task<IActionResult> Create(Category newCategory)
+        public async Task<IActionResult> Create(NewCategory newCategory)
         {      
             var category = await _categoryService.Create(_mapper.Map<Business.Model.Category>(newCategory));
 

@@ -58,9 +58,9 @@ namespace easyeat.Business.Services
 
         private async Task VerifyCategory(Category category)
         {
-            await _context.Categories.FirstOrDefaultAsync(c => c.Name == category.Name);
+            var categoryExists = await _context.Categories.FirstOrDefaultAsync(c => c.Name == category.Name);
 
-            if(category != null)
+            if(categoryExists != null)
             {
                 throw new Exception($"Category '{category.Name}' already exists.");
             }
