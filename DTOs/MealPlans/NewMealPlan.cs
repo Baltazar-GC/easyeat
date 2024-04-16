@@ -13,8 +13,8 @@ namespace easyeat.DTOs.MealPlans
 
         public decimal Price { get; set; }
 
-        public List<Dish> IncludedDishes { get; set; }
+        public List<int> IncludedDishesIds { get; set; }
 
-        public Restaurant OfferedBy { get; set; }
+        public int OfferedById { get; set; }
     }
 }
