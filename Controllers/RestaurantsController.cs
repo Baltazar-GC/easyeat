@@ -6,12 +6,12 @@ namespace easyeat.Controllers
 {
     [ApiController]
     [Route("api/restaurants")]
-    public class RestaurantController : ControllerBase
+    public class RestaurantsController : ControllerBase
     {
         private readonly IRestaurantService _restaurantService;
         private readonly IMapper _mapper;
 
-        public RestaurantController(IRestaurantService restaurantService, IMapper mapper)
+        public RestaurantsController(IRestaurantService restaurantService, IMapper mapper)
         {
             _restaurantService = restaurantService;
             _mapper = mapper;
