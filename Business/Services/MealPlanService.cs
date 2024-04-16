@@ -16,17 +16,17 @@ namespace easyeat.Business.Services
 
         public async Task<List<MealPlan>> List()
         {
-            return await _context.MealPlans.Include(mp => mp.OfferedBy).ToListAsync();
+            return await _context.MealPlans.Include(mp => mp.Restaurant).ToListAsync();
         }
 
         public async Task<MealPlan> Get(int mealPlanId)
         {
-            return await _context.MealPlans.Include(mp => mp.OfferedBy).FirstOrDefaultAsync(mp => mp.Id == mealPlanId);
+            return await _context.MealPlans.Include(mp => mp.Restaurant).FirstOrDefaultAsync(mp => mp.Id == mealPlanId);
         }
 
         public async Task<List<MealPlan>> ListByRestaurant(int restaurantId)
         {
-            return await _context.MealPlans.Where(mp => mp.OfferedBy.Id == restaurantId).Include(mp => mp.OfferedBy).ToListAsync();
+            return await _context.MealPlans.Where(mp => mp.Restaurant.Id == restaurantId).Include(mp => mp.Restaurant).ToListAsync();
         }
 
         public async Task<MealPlan> Create(MealPlan mealPlan)
