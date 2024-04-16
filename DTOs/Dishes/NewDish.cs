@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using easyeat.Business.Model;
+using easyeat.DTOs.Categories;
 
 namespace easyeat.DTOs.Dishes
 {
