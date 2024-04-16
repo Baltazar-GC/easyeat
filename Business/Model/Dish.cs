@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace easyeat.Business.Model
 {
@@ -12,6 +13,11 @@ namespace easyeat.Business.Model
 
         public string Description { get; set; }
 
+        public int CategoryId { get; set; }
+
+        [ForeignKey("CategoryId")]
         public Category Category { get; set; }
+
+        public List<MealPlan> MealPlans { get; set; }
     }
 }

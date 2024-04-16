@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace easyeat.Business.Model
 {
@@ -7,23 +8,13 @@ namespace easyeat.Business.Model
         [Key]
         public int Id { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string UserId { get; set; }
 
-        public Address Address { get; set; }
+        [ForeignKey("UserId")]
+        public ApplicationUser User { get; set; }
 
-        public string CuisineType { get; set; }
-
-        public decimal Rating { get; set; }
-
-        public List<MealPlan> OfferedPlans { get; set; }
-        
-        public string OperatingHours { get; set; }
-
-        public string PhoneNumber { get; set; }
-
-        public string Email { get; set; }
+        public MealPlan MealPlan { get; set; }
     }
 }
