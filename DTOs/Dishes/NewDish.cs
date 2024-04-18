@@ -9,7 +9,8 @@ namespace easyeat.DTOs.Dishes
         public string Name { get; set; }
 
         public string Description { get; set; }
-
+        
+        [Required]
         public int CategoryId { get; set; }
     }
 }

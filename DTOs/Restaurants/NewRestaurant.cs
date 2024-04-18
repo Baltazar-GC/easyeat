@@ -17,7 +17,7 @@ namespace easyeat.DTOs.Restaurants
 
         public decimal Rating { get; set; }
 
-        public List<MealPlan> OfferedPlans { get; set; }
+        public List<int> OfferedPlansIds { get; set; }
         
         public string OperatingHours { get; set; }
 

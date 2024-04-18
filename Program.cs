@@ -69,7 +69,7 @@ builder.Services
         .AddJwtBearer(options =>
         {
             options.Authority = builder.Configuration["Auth0:Domain"];   
-            // options.Audience = builder.Configuration["Auth0:Audience"];
+            options.Audience = builder.Configuration["Auth0:Audience"];
             options.RequireHttpsMetadata = false;
             options.TokenValidationParameters = new TokenValidationParameters
             {
@@ -93,8 +93,6 @@ builder.Services.AddCors(options =>
                    .AllowAnyHeader();
         });
 });
-
-// builder.Services.AddMvc();
 
 var app = builder.Build();
 

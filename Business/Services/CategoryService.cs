@@ -1,4 +1,5 @@
 using easyeat.Business.Data;
+using easyeat.Business.Exceptions;
 using easyeat.Business.Model;
 using easyeat.Business.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -62,7 +63,7 @@ namespace easyeat.Business.Services
 
             if(categoryExists != null)
             {
-                throw new Exception($"Category '{category.Name}' already exists.");
+                throw new EasyeatBusinessException($"Category '{category.Name}' already exists.");
             }
         }
     }
