@@ -13,6 +13,7 @@ namespace easyeat.Business.Model
 
         public string Description { get; set; }
 
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
 
         public List<Suscription> Suscriptions { get; set; }

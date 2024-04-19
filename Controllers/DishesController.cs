@@ -29,6 +29,16 @@ namespace easyeat.Controllers
             return Ok(dishes);
         }
 
+        // GET: /api/dishes/restaurant/{restaurantId}
+        [HttpGet("restaurant/{restaurantId}")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Restaurant, Admin")]
+        public async Task<IActionResult> List(int restaurantId)
+        {
+            var dishes = await _dishService.List(restaurantId);
+
+            return Ok(dishes);
+        }
+
         // GET: /api/dishes/{id}
         [HttpGet("{dishId}")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Restaurant, Admin")]

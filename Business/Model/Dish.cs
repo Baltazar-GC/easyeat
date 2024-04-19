@@ -19,5 +19,10 @@ namespace easyeat.Business.Model
         public Category Category { get; set; }
 
         public List<MealPlan> MealPlans { get; set; }
+
+        public int? RestaurantId { get; set; }
+
+        [ForeignKey("RestaurantId")]
+        public Restaurant Restaurant { get; set; }
     }
 }

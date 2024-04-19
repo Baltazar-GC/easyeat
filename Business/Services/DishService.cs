@@ -17,7 +17,16 @@ namespace easyeat.Business.Services
 
         public async Task<List<Dish>> List()
         {
-            return await _context.Dishes.ToListAsync();
+            return await _context.Dishes.Include(d => d.Category).ToListAsync();
+        }
+
+        public async Task<List<Dish>> List(int restaurantId)
+        {
+            return await _context.Dishes
+                .Include(d => d.Category)
+                .Include(x => x.Restaurant)
+                .Where(x => x.RestaurantId == restaurantId)
+                .ToListAsync();
         }
 
         public async Task<Dish> Get(int dishId)

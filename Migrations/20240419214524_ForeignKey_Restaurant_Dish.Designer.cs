@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using easyeat.Business.Data;
 
@@ -11,9 +12,11 @@ using easyeat.Business.Data;
 namespace easyeat.Migrations
 {
     [DbContext(typeof(EasyeatDbContext))]
-    partial class EasyeatDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240419214524_ForeignKey_Restaurant_Dish")]
+    partial class ForeignKey_Restaurant_Dish
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

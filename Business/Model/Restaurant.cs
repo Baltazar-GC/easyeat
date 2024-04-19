@@ -16,6 +16,7 @@ namespace easyeat.Business.Model
 
         public string CuisineType { get; set; }
 
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Rating { get; set; }
         
         public string OperatingHours { get; set; }

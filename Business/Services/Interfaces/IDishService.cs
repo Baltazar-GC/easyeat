@@ -6,6 +6,8 @@ namespace easyeat.Business.Services.Interfaces
     {
         Task<List<Dish>> List();
 
+        Task<List<Dish>> List(int restaurantId);
+
         Task<Dish> Get(int dishId);
 
         Task<Dish> Create(Dish dish);
