@@ -14,10 +14,6 @@ namespace easyeat.DTOs.Restaurants
         public NewAddress Address { get; set; }
 
         public string CuisineType { get; set; }
-
-        public decimal Rating { get; set; }
-
-        public List<int> OfferedPlansIds { get; set; }
         
         public string OperatingHours { get; set; }
 

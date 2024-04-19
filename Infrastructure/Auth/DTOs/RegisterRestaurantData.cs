@@ -1,12 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using easyeat.DTOs.Addresses;
+using System.ComponentModel.DataAnnotations;
 
 namespace easyeat.Infrastructure.Auth.DTOs
 {
     public class RegisterRestaurantData
     {
-        [Required(ErrorMessage = "El nombre del restaurant es requerido"), StringLength(100)]
-        public string UserName { get; set; }
-
         [Required(ErrorMessage = "El email es requerido"), EmailAddress]
         public string Email { get; set; }
 
@@ -20,5 +18,18 @@ namespace easyeat.Infrastructure.Auth.DTOs
         [DataType(DataType.Password)]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public NewAddress Address { get; set; }
+
+        public string CuisineType { get; set; }
+
+        public string OperatingHours { get; set; }
+
+        public string PhoneNumber { get; set; }
     }
 }

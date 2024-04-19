@@ -1,4 +1,6 @@
-﻿using easyeat.Business.Exceptions;
+﻿using AutoMapper;
+using easyeat.Business.Exceptions;
+using easyeat.DTOs.Restaurants;
 using easyeat.Infrastructure.Auth.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -15,12 +17,16 @@ namespace easyeat.Infrastructure.Auth.Services
         private readonly IConfiguration _config;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IRestaurantService _restaurantService;
+        private readonly IMapper _mapper;
 
-        public AuthService(IConfiguration config, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AuthService(IConfiguration config, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IRestaurantService restaurantService, IMapper mapper)
         {
             _config = config;
             _userManager = userManager;
             _roleManager = roleManager;
+            _restaurantService = restaurantService;
+            _mapper = mapper;
         }
 
         public async Task<string> Login(LoginData loginData)
@@ -66,9 +72,14 @@ namespace easyeat.Infrastructure.Auth.Services
             return GenerateToken(user, userRoles);
         }
 
-        public async Task<string> RegisterRestaurant(RegisterRestaurantData registerData)
+        public async Task<string> RegisterRestaurant(RegisterRestaurantData registerData, NewRestaurant newRestaurant)
         {
-            var userExists = await _userManager.FindByNameAsync(registerData.UserName);
+            var restaurant = await _restaurantService.Get(newRestaurant.Name);
+
+            if (restaurant != null)
+                throw new EasyeatBusinessException("Oops, restaurante ya registrado.");
+
+            var userExists = await _userManager.FindByNameAsync(newRestaurant.Name);
 
             if (userExists != null)
                 throw new EasyeatBusinessException("Oops, restaurante ya registrado.");
@@ -77,7 +88,7 @@ namespace easyeat.Infrastructure.Auth.Services
             {
                 Email = registerData.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = registerData.UserName,
+                UserName = newRestaurant.Name,
             };
 
             var result = await _userManager.CreateAsync(user, registerData.Password);
@@ -91,6 +102,8 @@ namespace easyeat.Infrastructure.Auth.Services
             await _userManager.AddToRoleAsync(user, "Restaurant");
 
             var userRoles = await _userManager.GetRolesAsync(user);
+
+            await _restaurantService.Create(_mapper.Map<Business.Model.Restaurant>(newRestaurant));
 
             return GenerateToken(user, userRoles);
         }

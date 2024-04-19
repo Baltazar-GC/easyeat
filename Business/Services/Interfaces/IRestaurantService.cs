@@ -6,6 +6,8 @@ public interface IRestaurantService
 
     Task<Restaurant> Get(int restaurantId);
 
+    Task<Restaurant> Get(string restaurantName);
+
     Task<Restaurant> Create(Restaurant restaurant);
 
     Task Update(Restaurant restaurant);

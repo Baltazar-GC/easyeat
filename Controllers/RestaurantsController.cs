@@ -1,5 +1,6 @@
 using AutoMapper;
 using easyeat.DTOs.Restaurants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace easyeat.Controllers
@@ -17,8 +18,9 @@ namespace easyeat.Controllers
             _mapper = mapper;
         }
 
-        // GET: /api/restaurants
+        // LIST: /api/restaurants
         [HttpGet]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Restaurant, Admin, Customer")]
         public async Task<IActionResult> List()
         {
             var restaurants = await _restaurantService.List();
@@ -28,6 +30,7 @@ namespace easyeat.Controllers
 
         // GET: /api/restaurants/{id}
         [HttpGet("{restaurantId}")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Restaurant, Admin, Customer")]
         public async Task<IActionResult> Get(int restaurantId)
         {
             var restaurant = await _restaurantService.Get(restaurantId);
@@ -40,8 +43,24 @@ namespace easyeat.Controllers
             return Ok(_mapper.Map<Restaurant>(restaurant));
         }
 
+        // GET: /api/restaurants/{restaurantName}
+        [HttpGet("name/ma")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Restaurant, Admin, Customer")]
+        public async Task<IActionResult> Get(string restaurantName)
+        {
+            var restaurant = await _restaurantService.Get(restaurantName);
+
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<Restaurant>(restaurant));
+        }
+
         // DELETE: /api/restaurants/{id}
         [HttpDelete("{restaurantId}")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Restaurant, Admin")]
         public async Task<IActionResult> Delete(int restaurantId)
         {
             var restaurant = await _restaurantService.Get(restaurantId);
@@ -56,17 +75,9 @@ namespace easyeat.Controllers
             return Ok();
         }
 
-        // POST: /api/restaurants
-        [HttpPost]
-        public async Task<IActionResult> Createe(NewRestaurant newRestaurant)
-        {      
-            var restaurant = await _restaurantService.Create(_mapper.Map<Business.Model.Restaurant>(newRestaurant));
-
-            return Ok(_mapper.Map<Restaurant>(restaurant));
-        }
-
         // PUT: /api/restaurants/{id}
         [HttpPut("{restaurantId}")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Restaurant, Admin")]
         public async Task<IActionResult> Update(Restaurant restaurant, int restaurantId)
         {
             var existentRestaurant = await _restaurantService.Get(restaurantId);

@@ -1,4 +1,5 @@
-﻿using easyeat.Infrastructure.Auth.DTOs;
+﻿using easyeat.DTOs.Restaurants;
+using easyeat.Infrastructure.Auth.DTOs;
 
 namespace easyeat.Infrastructure.Auth.Services
 {
@@ -8,6 +9,6 @@ namespace easyeat.Infrastructure.Auth.Services
 
         public Task<string> Register(RegisterData registerData);
 
-        public Task<string> RegisterRestaurant(RegisterRestaurantData registerRestaurantData);
+        public Task<string> RegisterRestaurant(RegisterRestaurantData registerRestaurantData, NewRestaurant newRestaurant);
     }
 }
