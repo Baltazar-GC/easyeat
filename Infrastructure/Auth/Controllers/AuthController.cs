@@ -12,12 +12,8 @@ namespace easyeat.Infrastructure.Auth.Controllers
     {
         private readonly IAuthService _authService;
 
-        public AuthController(
-            UserManager<IdentityUser> userManager,
-            RoleManager<IdentityRole> roleManager, IAuthService authService)
+        public AuthController(IAuthService authService)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
             _authService = authService;
         }
 
