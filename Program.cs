@@ -4,6 +4,7 @@ using easyeat.Business.Data;
 using easyeat.Business.Services;
 using easyeat.Business.Services.Interfaces;
 using easyeat.Infrastructure.Auth.Services;
+using easyeat.Infrastructure.Middlewares.Error;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,9 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(setupAction =>
 {
     setupAction.AddSecurityDefinition("EasyeatApiBearerAuth", new OpenApiSecurityScheme()
@@ -124,10 +127,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCustomExceptionHandler();
 
 app.MapControllers();
 

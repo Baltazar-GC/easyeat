@@ -22,7 +22,7 @@ namespace easyeat.Business.Services
 
         public async Task<Dish> Get(int dishId)
         {
-            return await _context.Dishes.FirstOrDefaultAsync(mp => mp.Id == dishId);
+            return await _context.Dishes.Include(x => x.Category).FirstOrDefaultAsync(mp => mp.Id == dishId);
         }
 
         public async Task<Dish> Create(Dish dish)
@@ -33,7 +33,7 @@ namespace easyeat.Business.Services
 
             await _context.SaveChangesAsync();
 
-            return dish;
+            return await Get(dish.Id);
         }
 
         public async Task Update(Dish dish)
