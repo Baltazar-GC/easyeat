@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,10 +11,10 @@ namespace easyeat.Business.Model
 
         public string Name { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         [ForeignKey("UserId")]
-        public ApplicationUser User { get; set; }
+        public IdentityUser User { get; set; }
 
         public MealPlan MealPlan { get; set; }
     }

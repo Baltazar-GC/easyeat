@@ -1,15 +1,16 @@
 using easyeat.Business.Model;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace easyeat.Business.Data;
 
-public class EasyeatDbContext : DbContext
+public class EasyeatDbContext : IdentityDbContext<IdentityUser>
 {
     public EasyeatDbContext(DbContextOptions<EasyeatDbContext> options)
         : base(options)
     {
     }
-
     public DbSet<Address> Addresses { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Dish> Dishes { get; set; }
@@ -19,7 +20,7 @@ public class EasyeatDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        // base.OnModelCreating(builder);
+        base.OnModelCreating(builder);
 
         // string ADMIN_ROLE = "341743f0-asd2–42de-afbf-59kmkkmk72cf6";
         // builder.Entity<IdentityRole>().HasData(new IdentityRole
