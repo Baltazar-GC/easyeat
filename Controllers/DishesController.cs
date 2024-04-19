@@ -1,6 +1,7 @@
 using AutoMapper;
 using easyeat.Business.Services.Interfaces;
 using easyeat.DTOs.Dishes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace easyeat.Controllers
@@ -20,6 +21,7 @@ namespace easyeat.Controllers
 
         // GET: /api/dishes
         [HttpGet]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Restaurant, Admin")]
         public async Task<IActionResult> List()
         {
             var dishes = await _dishService.List();
@@ -29,6 +31,7 @@ namespace easyeat.Controllers
 
         // GET: /api/dishes/{id}
         [HttpGet("{dishId}")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Restaurant, Admin")]
         public async Task<IActionResult> Get(int dishId)
         {
             var dish = await _dishService.Get(dishId);
@@ -43,6 +46,7 @@ namespace easyeat.Controllers
 
         // DELETE: /api/dishes/{id}
         [HttpDelete("{dishId}")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Restaurant, Admin")]
         public async Task<IActionResult> Delete(int dishId)
         {
             var dish = await _dishService.Get(dishId);
@@ -59,6 +63,7 @@ namespace easyeat.Controllers
 
         // PUT: /api/dishes/{id}
         [HttpPut("{dishId}")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Restaurant, Admin")]
         public async Task<IActionResult> Update(Dish dish, int dishId)
         {
             var existentDish= await _dishService.Get(dishId);
@@ -80,6 +85,7 @@ namespace easyeat.Controllers
 
         // POST: /api/dishes
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Restaurant, Admin")]
         public async Task<IActionResult> Create(NewDish newDish)
         {      
             var dish = await _dishService.Create(_mapper.Map<Business.Model.Dish>(newDish));
