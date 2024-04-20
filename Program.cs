@@ -4,6 +4,10 @@ using easyeat.Business.Data;
 using easyeat.Business.Services;
 using easyeat.Business.Services.Interfaces;
 using easyeat.Infrastructure.Auth.Services;
+using easyeat.Infrastructure.Locations.API;
+using easyeat.Infrastructure.Locations.API.Interfaces;
+using easyeat.Infrastructure.Locations.Helpers;
+using easyeat.Infrastructure.Locations.Helpers.Interfaces;
 using easyeat.Infrastructure.Middlewares.Error;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -93,11 +97,14 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IRestaurantService, RestaurantService>();
 builder.Services.AddScoped<IMealPlanService, MealPlanService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IDishService, DishService>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ILocationsAPIClient, LocationsAPIClient>();
+builder.Services.AddScoped<ILocationsHelper, LocationsHelper>();
 
 builder.Services.AddControllers();
 

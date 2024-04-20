@@ -44,7 +44,7 @@ namespace easyeat.Controllers
         }
 
         // GET: /api/restaurants/{restaurantName}
-        [HttpGet("name")]
+        [HttpGet("name/{restaurantName}")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Restaurant, Admin, Customer")]
         public async Task<IActionResult> Get(string restaurantName)
         {
