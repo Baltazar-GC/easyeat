@@ -1,4 +1,5 @@
 ﻿using easyeat.Business.Exceptions;
+using Serilog;
 
 namespace easyeat.Infrastructure.Middlewares.Error
 {
@@ -26,15 +27,19 @@ namespace easyeat.Infrastructure.Middlewares.Error
             }
             catch (Exception ex)
             {
-                if(IsBusinessException(context, ex))
+                if (IsBusinessException(context, ex))
                 {
                     context.Response.ContentType = jsonContentType;
                     context.Response.StatusCode = StatusCodes.Status400BadRequest;
                     await context.Response.WriteAsync(ex.Message);
 
+                    Log.Error("Error 400 => {@result}", ex.Message);
+
                     return;
                 }
-
+                
+                Log.Error("Unhandled exception: {@exception}", ex);
+                
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             }
         }
